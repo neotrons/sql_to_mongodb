@@ -37,47 +37,45 @@ type: int, str, json
 
 """
 MAP = {
-    "cod_cuadro": {
+    "campo_origen_sql": {
+        "type": "tipo",
+        "dest": "campo_destino_mongo"
+    },
+
+    "nombre": {
+        "type": "str",
+        "dest": "nombre"
+    },
+
+    "apellidopat": {
+        "type": "str",
+        "dest": "apellido_paterno"
+    },
+
+    "edad": {
         "type": "int",
-        "dest": "cod_cuadro"
-    },
-
-    "tomo": {
-        "type": "str",
-        "dest": "tomo"
-    },
-
-    "titulo_cuadro": {
-        "type": "str",
-        "dest": "titulo_cuadro"
-    },
-
-    "nombre_cuadro": {
-        "type": "str",
-        "dest": "nombre_cuadro"
-    },
-
-    "pie_pagina": {
-        "type": "str",
-        "dest": "pie_pagina"
-    },
-
-    "filas": {
-        "type": "json",
-        "dest": "filas"
+        "dest": "edad"
     }
 }
 
 """ Agrega nuevos tipos
 
-def to_int_or_cero(v):
-    return int(v, 0)
+def to_int_or_cero(v, **kwargs):
+    return int(v or 0)
     
 TIPO_FUNCIONES = {
     "int_or_cero": to_int_or_cero
 }
 
-int_or_cero esta disponible como nuevo type
+int_or_cero esta disponible como nuevo type para aplicar en map
+
+MAP = {
+    ....
+    "edad": {
+        "type": "int_or_cero",
+        "dest": "edad"
+    }
+}    
 """
 TIPO_FUNCIONES = {}
 

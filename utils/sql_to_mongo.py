@@ -3,15 +3,15 @@ import json
 from pymongo import MongoClient
 
 
-def to_int(v):
+def to_int(v, **kwargs):
     return int(v) if v is not None else v
 
 
-def to_str(v):
+def to_str(v, **kwargs):
     return str(v).strip() if v is not None else v
 
 
-def to_json(v):
+def to_json(v, **kwargs):
     return json.loads(v) if v is not None else v
 
 
@@ -35,7 +35,7 @@ def to_dict(cursor, mapper, functions):
         for k, v in dato.items():
             if k in mapper:
                 if mapper[k]['type'] in TIPOS:
-                    d = TIPOS[mapper[k]['type']](v)
+                    d = TIPOS[mapper[k]['type']](v, **dato)
                 else:
                     d = v
                 newdato[mapper[k]["dest"]] = d
