@@ -9,7 +9,8 @@ ORIGEN = {
         "password": 'xxxxxxx'
     },
 
-    "table": '[ESQUEMA].[TABLA]',  # Esquema es opcional
+    "table": '[ESQUEMA].[TABLA]',  # Esquema es opcional, en caso exista una query se ignora table
+    "query": ''  # Es opcional en caso no este especificada o vacio se hara un select * from a la variable table
 }
 
 DESTINO = {

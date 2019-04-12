@@ -54,11 +54,19 @@ def mongo(ops, datos):
 
 
 def sql(ops, mapper, functions):
-    config = ops['config']
+    config = ops.get('config')
+    table = ops.get('table')
+    table = table.strip() if isinstance(table, str) else table
+    query = ops.get('query')
+    query = query.strip() if isinstance(query, str) else query
     cnxn = pyodbc.connect('DRIVER={SQL Server};SERVER=%s;DATABASE=%s;UID=%s;PWD=%s'
                           % (config["host"], config["name"], config["user"], config["password"]))
     cursor = cnxn.cursor()
-    query = "SELECT * FROM {}".format(ops['table'])
+    if query is None or query == "":
+        if table is not None and table != "":
+            query = "SELECT * FROM {}".format(table)
+        else:
+            raise Exception('table o query es obligatorio en ORIGEN')
     cursor.execute(query)
     cabeceras = [col[0] for col in cursor.description]
     datos = to_dict(cursor, mapper, functions)
